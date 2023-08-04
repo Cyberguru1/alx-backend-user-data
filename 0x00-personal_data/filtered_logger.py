@@ -86,18 +86,17 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
 
 
 def main():
-    """
-    main entry point
+    """_summary_
     """
     db = get_db()
     logger = get_logger()
-    cursor = db.cursor()
-    cursor.execute("SELECT * FROM users;")
-    fields = cursor.column_names
-    for row in cursor:
+    curs = db.curs()
+    curs.execute("SELECT * FROM users;")
+    fields = curs.column_names
+    for row in curs:
         message = "".join("{}={}; ".format(k, v) for k, v in zip(fields, row))
         logger.info(message.strip())
-    cursor.close()
+    curs.close()
     db.close()
 
 
